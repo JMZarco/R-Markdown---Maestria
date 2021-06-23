@@ -1,0 +1,94 @@
+---
+title: "Untitled"
+author: "Juan José Merino Zarco"
+date: "23/6/2021"
+output: pdf_document
+---
+
+
+Tema 1
+
+Sintaxis básica de R Markdown
+
+```{r}
+# Ctrl + Alt + I  nos crea un chunk
+# El simbolo # sirve para hacer comentarios adentro de un chunk
+```
+
+Letras cursivas:
+
+*italics*
+
+Letras negritas:
+
+**bold**
+
+Superindices:  
+
+superindice^2^
+
+Subindices:
+
+subindices~2~
+
+Letra tachada:
+
+~~frase que queremos tachar~~
+
+Insertar enlaces:
+
+<https://www.youtube.com/watch?v=s3JldKoA0zw>
+
+Insertar enlaces adentro de una palabra:
+
+[Frase o palabra](https://www.youtube.com/watch?v=s3JldKoA0zw)
+
+Agregar imagenes:
+
+![Frase](rmarkdown.png){width="5%"}
+
+Agregar titulos:
+
+# Titulo nivel 1
+
+## Titulo nivel 2
+
+### Titulo nivel 3
+
+Linea horizontal:
+
+***
+
+Bloque texto:
+
+> Bloque de texto al cual queremos hacerle enfasis
+
+
+Crear listas sin orden:
+
+* Primer elemento
+* Segundo elemento
+* Tercer elementa
+  * Sub elemento
+* Cuarto elemento
+
+Listas orden:
+
+a) Primer elemento
+b) Segundo elemento
+c) Tercer elemento
+
+i) Primero
+ii) Segundo
+
+1. elemento 1
+2. elemento 2
+
+$$x^2+2=0$$
+
+
+
+
+
+
+

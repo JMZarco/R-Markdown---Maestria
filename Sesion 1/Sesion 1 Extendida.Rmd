@@ -1,0 +1,247 @@
+---
+title: "Sesion 1"
+author: "Juan José Merino Zarco"
+date: "21/6/2021"
+output: pdf_document
+---
+
+Syntaxis de R MarkDown
+
+
+```{r}
+# Para crear un nuevo chunk, presionar: ctrl + alt + I
+
+# Para añadir un comentario adentro de un chunk, iniciar la linea con un simbolo de gato, "#". 
+```
+
+
+```{r}
+# Letras cursivas: *italicas* , _italicas_
+``` 
+
+*italicas* , _italicas_
+
+```{r}
+# Letras negritas: **bold** , __bold__
+```
+
+**bold** , __bold__ 
+
+```{r}
+# superindice: ecuación^2^
+```
+
+ecuación^2^
+
+```{r}
+# subindice: ecuación~2~
+```
+
+ecuación~2~
+
+```{r}
+# letra tachada: ~~strikethrouh~~
+```
+
+~~strikethrouh~~
+
+~~Hola mundo~~
+
+```{r}
+#agregar enlaces adentro de una palabra: [R Markdown](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+```
+
+[R Markdown](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+
+```{r}
+#Agregar enlace:  <https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf>
+```
+
+<https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf>
+
+
+```{r}
+#Agregar Imagen: ![Logo de RMarkdown](rmarkdown.png){width="5%"}
+```
+
+ ![](rmarkdown.png){width="5%"}
+
+
+```{r}
+# Agregar titulos: # Primer nivel, ## Segundo nivel 
+```
+
+# Primer nivel
+
+## Segundo nivel
+
+### Tercer nivel
+
+```{r}
+# Hacer referencia a un titulo:
+
+#       ## Título 1 {#tit1}
+
+#          lo vimos en [La seccion 2](#tit1) de este trabajo
+```
+
+## Titulo para referencia {#tit1}
+
+Como lo vimos en [La seccion 2](#tit1) de este trabajo
+
+```{r}
+# Linea horizontal: ***
+```
+
+***
+
+```{r}
+# Cita: > Block quote
+```
+
+> Block quote
+
+```{r}
+#Podemos anidar los bloques
+```
+
+> Bloque 1
+>
+> > Subloque 1.1
+>
+> Bloque 1
+
+
+```{r}
+# Lista sin orden:  * elemento 1
+#                   * elemento 2
+#                     + sub-elemento 1
+#                     + sub-elemento 2
+#                       - subsub-elemento 1
+#                       - subsub-elemento 2
+
+## Nota adicional: para crear los sub-niveles de lista lo importante son los espacios que se dejan utilizando la tecla "tab".
+```
+
+* elemento 1
+* elemento 2
+  * sub-elemento 1
+  * sub-elemento 2
+    - subsub-elemento 1
+    - subsub-elemento 2
+
+```{r}
+#Lista Ordenada: 
+
+#                   a) elemento 1
+#                   b) elemento 2
+
+#                   1. elemento 1
+#                   2. elemento 2
+
+#                   I) elemento 1
+#                   II) elemento 2
+#                       i) sub-elemento 1
+#                       ii) sub-elemento 2
+```
+
+a) elemento 1
+b) elemento 2
+
+1. elemento 1
+2. elemento 2
+
+I) elemento 1
+II) elemento 2
+    i) sub-elemento 1
+    ii) sub-elemento 2
+  
+
+```{r}
+# Generar una tabla (manualmente):
+
+# Encabezado 1 | Encabezado 2
+# ------------ | ------------
+# Celda 1.1    | Celda 2.1
+# Celda 1.2    | Celda 2.2 
+```
+
+Encabezado 1 | Encabezado 2
+------------ | ------------
+Celda 1.1    | Celda 2.1
+Celda 1.2    | Celda 2.2
+
+```{r}
+# Alineacion de una tabla
+
+# :--: Alineacion al centro
+# :--  Alineacion a la izquierda
+#  --: Alineacion a la derecha
+```
+
+Encabezado 1 | Encabezado 2 | Encabezado 3
+:----------: | :------------|-------------:
+Celda 1.1    | Celda 2.1    | Celda 3.1
+Celda 1.2    | Celda 2.2    | Celda 3.2
+
+```{r}
+# Salto de pagina: \newpage
+```
+
+\newpage
+
+```{r}
+# Introducir ecuaciones, centradas: $$ax^{2}+bx+c=0$$
+```
+
+$$a+b+c = 3$$
+
+```{r}
+# Introducir ecuaciones en medio del texto: Encontrar las raíces del siguiente polinomio 
+# $ax^{2}+bx+c=0$, posteriormente evalúe las raíces en
+# la ecuación y compruebe que el resultado es igual a cero. 
+```
+
+Encontrar las raíces del siguiente polinomio: $x^{2}+bx+c=0$, posteriormente evalúe las raíces en el polinomio y compruebe que el resultado es igual a cero.
+
+```{r}
+# Nota al pie de pagina: ... $a^{2}+2ab+b^{2} = (a+b)^{2}$ [^1] ...
+
+# [^1]: Trinomio cuadrado perfecto
+```
+
+... $a^{2}+2ab+b^{2} = (a+b)^{2}$ [^1] ...
+
+
+[^1]: Trinomio cuadrado perfecto
+ 
+
+```{r}
+# Caracteres Especiales que en ocasiones necesitan de \ para poder aparecer en texto: 
+# \ , ` , * , _ , {}, #, +, !
+
+##  \\
+##  \*
+```
+
+
+\\
+
+\*
+
+
+***
+
+# Recursos adicionales
+
+R Markdown: The Definitive Guide (Yihui Xie, J. J. Allaire, Garrett Grolemund):
+
+<https://bookdown.org/yihui/rmarkdown/basics.html>
+
+R MarkdownCheat Sheet:
+
+<https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf>
+
+
+
+
