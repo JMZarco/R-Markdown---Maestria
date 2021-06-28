@@ -1,0 +1,550 @@
+---
+title: "Sesion 2"
+author: "Juan José Merino Zarco"
+date: "22/6/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Nota importante
+
+Cada vez que inician un nuevo trabajo, pueden notar que los objetos que crearon en otros archivos pueden (o no) seguir en el apartado de "Entorno de trabajo de RStudio" (el apartado superior que esta a la derecha), por lo cual es recomendable agregar el comando: rm(list=ls())  en el primer chunk de cada nuevo archivo, el cual limpia del entorno de trabajo, alternativamente, pueden presionar el símbolo de la escoba que se encuentra en el apartado de "Entorno de trabajo". 
+
+```{r}
+rm(list=ls())
+```
+
+
+# GitHub
+
+-   Crear una cuenta en GitHub
+
+-   Explorar la pagina GitHub
+
+    -   Repositorios
+    -   Fork
+
+# Uso de help()
+    
+```{r}
+# help()
+```
+
+\newpage
+    
+
+# Manejo de datos
+
+## Tipos de datos
+
+Tipo     | Ejemplo
+---------|--------
+numeric  | 3.1416
+character| "pi"
+logical  | TRUE, FALSE
+NA       | NA
+null     | null
+
+```{r}
+class(1)
+```
+
+
+## Operadores
+
+
+
+### Operadores de asignacion
+
+Creación de un objeto
+
+resultados temporales
+
+```{r}
+2+2
+```
+
+
+Nota: Un objeto guarda los resultados temporales
+
+```{r}
+x = 3 + 2
+x
+```
+
+```{r}
+y <- 2 + 2
+y
+```
+
+
+### Operadores aritmeticos
+
+R admite los siguientes operadores aritméticos:
+
+```{r}
+x <- 2
+y <- 5
+```
+
+
+Suma
+
+```{r}
+z <- x + y
+z
+```
+
+Resta
+
+```{r}
+z <- x - y
+z
+```
+
+Multiplicacion
+
+```{r}
+z <- x * y
+z
+```
+
+Division
+
+```{r}
+z <- x/y
+z
+```
+
+Potencias
+
+```{r}
+z <- x^2
+g <- x^(1/2)
+z
+g
+```
+
+
+#### Adicional
+
+Se pueden realizar las siguientes transformaciones 
+
+Logaritmo natural
+
+```{r}
+log(10)
+```
+
+Logaritmo base 10
+
+```{r}
+log10(10)
+```
+
+Raiz cuadrada
+
+```{r}
+sqrt(4)
+```
+
+### Operadores relacionales
+
+Al utilizar estos operadores, el resultado que nos arrojaran sera **TRUE** o **FALSE**
+
+Menor que
+
+```{r}
+4 < 2
+```
+
+Menor o igual que
+
+```{r}
+4 <= 2
+```
+
+Mayor que
+
+```{r}
+4 > 2
+```
+
+Mayor o igual que
+
+```{r}
+4 >= 2
+```
+
+Exactamente igual que 
+
+```{r}
+4==2
+```
+
+No es igual que
+
+```{r}
+4 != 2
+```
+
+### Operadores logicos
+
+Operador | Comparacion
+---------|------------
+x\|y      | x O y es verdadero
+x & y    | x Y y son verdaderos
+!x       | x no es verdadero
+
+Ejemplos
+
+\|
+
+```{r}
+2 > 3 | 4 < 2
+```
+
+```{r}
+3 > 2 | 4 < 2
+```
+
+```{r}
+3 > 2 | 4 > 2
+```
+
+\&
+
+```{r}
+2 > 3 & 4 < 2
+```
+
+```{r}
+3 > 2 & 4 < 2
+```
+
+```{r}
+3 > 2 & 4 > 2
+```
+
+!
+
+```{r}
+! (2 > 3)
+```
+
+```{r}
+! (2 < 3)
+```
+
+
+## Orden de operaciones
+
+Orden | Operador
+------|---------
+1     | ^
+2     | * /
+3     | + -
+4     | < , > , <= , >= , == , !=
+5     | !
+6     | &
+7     | \|
+8     | <- , =
+
+Adicionalmente podemos usar parentesis "()" para que una operacion ocurra antes que otra.
+
+## Estructura de datos
+
+Dimensiones | Homogeneas| Heterogeneas
+------------|-----------| ------------
+1           | Vector    | 
+2           | Matriz    | Dataframe
+
+### Vectores
+
+Creando un vector
+
+```{r}
+v <- c(1, 2, 3, 4)
+v
+```
+
+```{r}
+v <- c(1:4)
+v
+```
+
+
+
+Largo
+
+```{r}
+length(v)
+```
+
+Verificar que sea un vector
+
+```{r}
+is.vector(v)
+```
+
+Para modificar un vector existente
+
+```{r}
+v <- c(v, 5)
+v
+```
+
+Uniendo 2 vectores distintos
+
+```{r}
+v <- c(1:4)
+b <- c(4:5)
+v <- c(v,b)
+v
+```
+
+
+**Operaciones con vectores**
+
+
+```{r}
+vec <- c(1:5)
+vec
+```
+
+*Operaciones aritmeticas*
+
+```{r}
+vecar <- vec + 2 
+vecar
+```
+
+```{r}
+vecar <- vec * 2
+vecar
+```
+
+
+*Operadores relacionales*
+
+```{r}
+vec > 3
+```
+
+```{r}
+vec != 3
+```
+
+*Multiplicacion de vectores*
+
+
+> Advertencia: 
+
+```{r}
+va <- c(1:3)
+vb <- c(1:3)
+```
+
+
+```{r}
+va %*% vb
+```
+
+```{r}
+va %*% t(vb)
+```
+
+```{r}
+t(va) %*% vb
+```
+
+```
+t(va) %*% t(vb)
+```
+
+
+
+
+### Matrices 
+
+Creando una matriz
+
+```{r}
+v1 <- c(1:3)
+v2 <- c(4:6)
+v3 <- c(1,3,5)
+```
+
+Usando cada vector como columna
+
+```{r}
+m1 <- cbind(v1,v2,v3)
+m1
+```
+
+
+
+Usando cada vector como un renglon
+
+```{r}
+m2 <- rbind(v1,v2,v3)
+m2
+```
+
+
+Dimension de la matriz
+
+```{r}
+dim(m2)
+```
+
+*Operaciones con matrices*
+
+```{r}
+m1 + 1
+```
+
+
+```{r}
+m1^2
+```
+
+Note que:
+```{r}
+(m1 %*% m1) == (m1^2)
+```
+
+
+*Transponer una matriz*
+
+```{r}
+t(m1)
+```
+
+Podemos comprobar su transpuesta si:
+
+```{r}
+t(m1) == m2
+```
+
+
+```{r}
+m1 + m2
+```
+
+```{r}
+m1 - m2
+```
+
+*Multiplicaciones de matrices*
+
+```{r}
+m1 %*% m2
+```
+
+*Inversa de una matriz*
+
+```{r}
+a1 <- c(1,1)
+a2 <- c(2,7)
+mtz <- cbind(a1,a2)
+mtz
+solve(mtz)
+```
+
+
+
+# Recursos adicionales
+
+R para principiantes, para el manejo de datos y bases de datos
+
+<https://bookdown.org/jboscomendoza/r-principiantes4/datos-mas-comunes.html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
