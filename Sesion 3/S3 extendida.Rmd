@@ -1,0 +1,400 @@
+---
+title: "S3 Extendida"
+author: "Juan José Merino Zarco"
+date: "28/6/2021"
+output: pdf_document
+---
+
+
+### Dataframes
+
+> Nota: cuando estamos visualizando dataframes en RStudio nos lo muestra por fragmentos, sin embargo, cuando compilamos a un pdf u otra salida el programa imprime todas las observaciones, por lo que si queremos compilar podemos usar el comando "head()" que solo visualiza las primeras observaciones. Alternativamente podemos usar el comando "tail()" que visualiza las ultimas observaciones.
+
+```{r}
+head(iris)
+```
+
+```{r}
+tail(iris)
+```
+
+
+#### Explorando un dataframe
+
+Revisamos las dimensiones del dataframe iris.
+
+```{r}
+dim(iris)
+```
+
+Revisamos el largo del dataframe, que corresponderá al numero de columnas que tenga.
+
+```{r}
+length(iris)
+```
+
+Para obtener las estadísticas básicas usamos: summary()
+
+```{r}
+summary(iris)
+```
+
+Para revisar cuantas observaciones tiene, numero de variables, etc., usamos: str()
+
+```{r}
+str(summary)
+```
+
+
+#### Manipulando el dataframe
+
+Podemos realizar operaciones con un dataframe como lo hicimos con una matriz, sin embargo, este puede contener datos no numericos, por lo que al realizar la operacion con un dato del tipo texto inmediatamente arrojara *NA*
+
+```{r}
+q <- iris+2
+head(q)
+```
+
+## Subconjuntos de una estructura de datos
+
+### Indices
+
+Un indice representa una posicion.
+
+> Nota : Los indices en R empiezan en 1, lenguajes como Python empiezan en 0.
+
+**Vectores**
+
+```{r}
+color <- c("rojo", "azul", "verde", "amarillo", "morado")
+color
+```
+
+Verificamos el largo
+
+```{r}
+length(color)
+```
+
+Buscamos extraer elementos especificos:
+
+* Primer elemento
+
+```{r}
+color[1]
+```
+
+* Quinto elemento
+
+```{r}
+color[5]
+```
+
+* Primeros 4 elementos
+
+```{r}
+color[1:4]
+```
+
+* 1 y 3 elemento
+
+```{r}
+color[c(1,3)]
+```
+
+* Eliminar el primer elemento
+
+```{r}
+color[-1]
+```
+
+* Eliminar el primer y tercer elemento
+
+```{r}
+color[c(-1, -3)]
+```
+
+**Dataframes**
+
+Usaremos el dataframe Iris.
+
+```{r}
+head(iris)
+```
+
+
+Verificamos nuevamente su dimensión
+
+```{r}
+dim(iris)
+```
+
+Notemos que el primer dígito corresponde al numero de renglones y el segundo al numero de columnas, lo cual nos servirá para identificar la posición de los elementos tal cual lo haríamos con una matriz.
+
+
+Ahora buscamos extraer:
+
+* El elemento que esta en el renglón 1 y columna 3
+
+```{r}
+iris[1,3]
+```
+
+* Solo el renglón 1
+
+
+```{r}
+iris[1,]
+```
+
+* Solo la columna 3
+
+```{r}
+head(iris[,3])
+```
+
+* Columnas 1 y 3
+
+```{r}
+head(iris[c(1,3)])
+```
+
+```{r}
+head(iris[,c(1,3)])
+```
+
+
+* Renglón 1 y 3
+
+```{r}
+iris[c(1,3),]
+```
+
+* Renglón 1 y 2, columna 3
+
+```{r}
+iris[1:2,3]
+```
+
+**Extraer por nombre**
+
+```{r}
+names(iris)
+```
+
+
+```{r}
+head(iris["Sepal.Length"])
+```
+
+```{r}
+head(iris[c("Sepal.Length", "Species")])
+```
+
+### Condicionales
+
+Para utilizar condicionales usaremos la siguiente estructura:
+
+> Data_frame[condicion, columnas_devueltas]
+
+**Uso de condicionales**
+
+Queremos obtener un subconjunto del dataframe iris, donde solo tengamos las observaciones en que la variable "Petal.Length" sea mayor o igual que 5.5.
+
+Primero obtenemos la variable Petal.Length del dataframe iris
+
+> dataframe$columna
+
+
+> Nota2: Analogo al comando "head()" podemos usar "tail()" para visualizar las ultimas 6 observaciones.
+
+```{r}
+tail(iris$Petal.Length)
+```
+
+Ahora, aplicamos la condicional
+
+```{r}
+tail(iris$Petal.Length >= 5.5)
+```
+
+Ahora obtendremos el subconjunto deseado del dataframe. 
+
+```{r}
+head(iris[iris$Petal.Length >= 5.5, ])
+```
+
+Buscamos un subconjunto que contenga las columnas 1, 3 y 5
+
+```{r}
+head(iris[iris$Petal.Length >= 5.5, c(1,3,5)])
+```
+
+Podemos conjuntar varias condiciones usando operadores lógicos.
+
+```{r}
+head(iris[iris$Petal.Length >= 5.5 & iris$Petal.Width >= 1, ])
+```
+
+```{r}
+head(iris[!(iris$Petal.Length < 5), ])
+```
+
+```{r}
+str(iris)
+```
+
+
+
+## Dplyr
+
+El manejo de datos que realizamos hasta ahora fue hecho con funciones base de R, sin embargo, ahora existen otras librerías como Dyplir que permiten realizar transformaciones "complejas" de una manera sencilla, el único inconveniente es que tendríamos que aprender la sintaxis propia de la librería.
+
+Para quien tenga interés por esta alternativa
+puede revisar el siguiente enlace [Tutorial de Dplyr](https://swcarpentry.github.io/r-novice-gapminder-es/13-dplyr/).
+
+## Funciones 
+
+La estructura de la función es la siguiente
+
+```
+nombre <- function(argumentos){
+operaciones
+}
+```
+
+### Area de un cuadrado
+
+Creemos la función
+
+```{r}
+area_cuadrado <- function(lado){
+lado*lado
+}
+```
+
+Probemos que funcione
+
+```{r}
+area_cuadrado(lado = 2)
+```
+
+
+## Histograma con estadisticos
+
+
+```{r}
+histograma <- function(Variable, name){
+hist(Variable, main = name, xlab = "Datos", ylab = "Frecuencia")
+summary(Variable)
+}
+```
+
+
+
+```{r}
+histograma(Variable = iris$Sepal.Length, name = "Sepal Length")
+```
+
+## Estructuras de control
+
+ESTRUCTURA DE CONTROL | DESCRIPCIÓN
+----------------------|------------
+if, else              | si, de otro modo
+for                   | Para cada uno en
+
+Existen otros como *while*, *break* y *next*, que no veremos.
+
+### If y Else
+
+La estructura para operar un if y else, es la siguiente:
+
+```
+if(condicion){
+operacion si la condicion es TRUE
+}else{
+Operacion si la condicion es FALSE
+}
+```
+
+
+```{r}
+if(5>3){
+  "Verdadero"
+}else{
+  "Falso"
+}
+```
+
+Caso: Verificar si un alumno de posgrado mantiene o no la beca de CONACYT
+
+```{r}
+promedio <- function(calificaciones){
+  media <- mean(calificaciones)
+  
+  if(media >= 8){
+    "Conserva la beca"
+  } else {
+    "Pierde la beca"
+  }
+}
+```
+
+
+
+```{r}
+alumno1 <- promedio(c(7, 8.8, 8.5,8.6))
+alumno1
+```
+
+```{r}
+alumno2 <- promedio(c(9,9,7,6))
+alumno2
+```
+
+### for
+
+La estructura es la siguiente:
+
+```
+for(elemento *in* objeto){
+operacion con cada elemento
+}
+```
+
+Ejemplo:
+
+```{r}
+d <- 1:6
+for(elemento in d){
+  elemento + 3
+}
+```
+
+
+```{r}
+d <- 1:6
+
+## Para este caso, como buscamos ir agregando elementos a un vector dup
+## Primero, necesitamos crear un vector vacio (NULL) 
+## al cual le agregaremos los elementos que creemos.
+
+dup <- NULL
+
+for(elemento in d){
+  dup[elemento] <- elemento + 3
+}
+
+print(dup)
+```
+
+
+# Recursos adicionales
+
+R para principiantes
+
+<https://bookdown.org/jboscomendoza/r-principiantes4/datos-mas-comunes.html>
+
+Tutorial de Dplyr
+
+<https://swcarpentry.github.io/r-novice-gapminder-es/13-dplyr/>
