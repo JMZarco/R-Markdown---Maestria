@@ -368,7 +368,7 @@ Problema de optimización: \vspace{.5cm}
     \notag s.a:& p_{1}x_{1}+p_{2}x_{2} \leq m 
 \end{align}
 
-El problema (\ref{Max}) de maximización, corresponde al problema de maximización de las preferencias sujeto a una restricción presupuestal, para resolverlo, existen varios métodos, entre los que se encuentran los "Multiplicadores de Lagrange". \vspace{.5cm}
+El problema (\ref{Max}) de maximización, corresponde al problema de maximización de la utilidad sujeto a una restricción presupuestal, para resolverlo, existen varios métodos, entre los que se encuentran los "Multiplicadores de Lagrange". \vspace{.5cm}
 
 
 \newpage
