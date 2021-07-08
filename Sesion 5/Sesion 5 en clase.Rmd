@@ -350,7 +350,7 @@ Ejemplo: Demostración de la Fórmula General para Resolver Ecuaciones de Segund
     4a^{2}x^{2}+4abx+4ac &= 0\\
     4a^{2}x^{2}+4abx+4ac + (b^{2}) &= (b^{2})\\
     4a^{2}x^{2}+4abx + (b^{2}) &= (b^{2}) - 4ac\\
-    (2ax)^{2} + 2 \cdot 2ax \cdot + b^{2} &= b^{2} - 4ac\\
+    (2ax)^{2} + 2 \cdot 2abx \cdot + b^{2} &= b^{2} - 4ac\\
     (2ax+b)^{2} &= b^{2} -4ac\\
     2ax+b &= \sqrt{b^{2} -4ac}\\
     2ax &= -b \pm \sqrt{b^{2} -4ac}\\
