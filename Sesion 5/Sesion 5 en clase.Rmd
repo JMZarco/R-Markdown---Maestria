@@ -1,0 +1,458 @@
+---
+title: "Untitled"
+author: "Juan José Merino Zarco"
+date: "6/7/2021"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos = 'h')
+```
+
+> El comando: knitr::opts_chunk$set(fig.pos = 'h') , nos sirve para que las figuras/tablas se fijen en la posicion que le indicamos en el codigo. De lo contrario, Rmarkdown podria ajustar en automatico nuestras tablas (y en algunos casos desplazarla a otra pagina)
+
+
+# Regresion lineal
+
+```{r}
+x <- 2 + 2
+```
+
+> `r`
+
+La suma de el dos con el dos nos da de resultado `r x`
+
+```{r, echo=TRUE}
+reg1 <- lm(mpg ~ wt, data = mtcars)
+reg1
+```
+
+```{r}
+summary.lm(reg1)
+```
+
+> Para presentar los resultados de una regresion usaremos la paqueteria stargazer.
+
+```{r}
+pacman::p_load(stargazer)
+```
+
+> Usaremos el comando stargazer(), para indicar el resultado de una regresion.
+
+```{r, results='asis', warning=FALSE}
+stargazer(reg1, header = FALSE)
+```
+
+> Nota: noten la configuracion que tiene el chunk: results='asis', warning=FALSE.  
++ results='asis' : imprime la salida tipo latex
++  warning=FALSE : elimina la advertencia que pudiera generar la tabla.
+
+> Adicionalmente, en el comando stargazer, podemos usar varios argumentos, el vital es header = FALSE, para quitar la nota que genera este comando (Donde indica la hora de creacion e info adicional)
+
+> Por lo cual se recomienda usar, al menos, las dos configuraciones anteriormente mencionadas al usar stargazer. 
+
+\newpage
+
+## Creacion de tablas
+
+> Nota: Terminando la clase, descubri que si es posible agregar directamente el titulo a esta tabla, agregando el argumento caption.
+
+```{r}
+g <- coef(summary(reg1))
+knitr::kable(g, caption = "Coeficientes de una regresion lineal")
+```
+
+> Por otro lado, la opcion mas recomendable es la presentada en la siguiente pagina, que consiste en cargar primero la libreria knitr y posteriormente usar el comando kable()
+
+\newpage
+
+
+Primero, cargamos la libreria:knitr
+
+```{r}
+pacman::p_load(knitr)
+```
+
+usaremos el comando kable() para darle formato a nuestras tablas.
+
+```{r}
+kable(g , caption = "Coeficientes de una regresion lineal"
+       , align = c('c', 'c', 'c', 'c', 'l')
+       , col.names = c("Coeficiente","Error Estandar","valor de t", "Pr(>|t|)")
+       , digits = 4
+      )
+```
+
+> Podemos investigar todas sus configuraciones en google, pero vamos a repasar las presentadas en este ejemplo.
+
++ caption: titulo de la tabla
++ align: alineacion de cada columna, 
+    + 'c' para centrar
+    + 'r' alinear a la derecha
+    + 'l' alinear a la izquierda
++ col.names: agregaremos un "vector" que contenga los nombres de las columnas
++ digits: para redondear el numero de decimales que presenta la tabla.
+
+* Comida
+* Comida
+
+```{r}
+kable(g , caption = "Coeficientes de una regresion lineal", digits = 4)
+```
+
+
+Los coeficientes de nuestra regresion son `r reg1$coefficients` .
+
+El intercepto de la regresion es `r reg1$coefficients[1]` .
+
+El valor de $\beta_{1}$ es `r reg1$coefficients[2]` .
+
+\newpage
+
+## Mejoras para la creacion de tablas
+
+```{r}
+pacman::p_load(knitr, kableExtra)
+```
+
+Usaremos tambien el comando kable(), pero con las funciones ampliadas que nos provee kableExtra
+
+```{r}
+kable(g, caption = "Coeficientes de una regresion lineal") %>% kable_styling(latex_options = "HOLD_position")
+```
+
+El caso ampliado seria:
+
+```{r}
+kable(g , caption = "Coeficientes de una regresion lineal"
+       , align = c('c', 'c', 'c', 'c', 'l')
+       , col.names = c("Coeficiente","Error Estandar","valor de t", "Pr(>|t|)")
+       , digits = 4
+      ) %>% kable_styling(latex_options = "HOLD_position")
+```
+
+
+\newpage
+
+# Latex
+
+$$
+\frac{d x}{dx} = 1
+$$
+
+\section{Símbolos matemáticos}
+
+Subindices: $x_{2}$ y alineado \\
+
+Superindice: $x^{2}$ \\
+
+Letras griegas:
+
+$$\alpha, \beta, \gamma, \delta, \lambda$$
+
+Operadores de relación
+
+$$\leq, \geq, \equiv$$
+
+\newpage
+
+Símbolos de flechas:
+
+$$
+\leftarrow , \rightarrow , \Leftarrow , \uparrow , \downarrow
+$$
+
+Operadores:
+
+$$
+\sum , \prod, \int
+$$
+
+$$
+\sum_{i=0}^{n} x_{i}
+$$
+
+Raices
+
+$$
+\sqrt{2}
+$$
+
+$$
+\sqrt[3]{2}
+$$
+
+Fracciones
+
+$$
+\frac{x}{y} = z
+$$
+
+Derivada
+
+$$
+\frac{d x}{dx} = 1
+$$
+
+\begin{equation}
+    xy
+\end{equation}
+
+\begin{equation}
+    \frac{d x^{2}}{dx} = 2x 
+\end{equation}
+
+\begin{equation}
+    \frac{d x}{dx} = 1 \label{EC1}
+\end{equation}
+
+\newpage
+
+La ecuación (\ref{EC1}), representa la derivada mas básica.
+
+Demostracion de la formula general para resolver ecuaciones de segundo grado. \\
+
+\begin{align}
+    ax^{2} +bx + &c = 0 \\
+    4a( ax^{2} +bx + &c) = 0 \\
+    4a^{2}x^{2} + 4abx + 4a&c = 0 \\
+    ...
+\end{align} 
+
+Listas
+
+\begin{itemize}
+ \item Primer nivel
+ \item Primer nivel, segundo
+ \item Primer Nivel, tercer
+\end{itemize}
+
+\begin{enumerate}
+    \item Tierra
+    \item Aire
+    \item Fuego
+    \item Agua
+\end{enumerate}
+
+
+\newpage
+
+
+## Notas agregadas para Latex
+
+
+\section{SÍMBOLOS MATEMÁTICOS}
+
+Subíndice: $x_{2}$ \vspace{.5cm}
+
+Superíndice: $x^{n}$ \vspace{.5cm}
+
+Letras griegas: 
+
+$$\alpha , \beta , ... \gamma , \delta , \lambda , \xi , \phi , \Pi $$
+
+$$\Gamma , \Delta , \Lambda , \Xi , \Phi , \Pi$$
+
+Operadores de relación:
+
+$$
+\leq, \geq, \equiv, \sim, \neq,
+$$
+
+Símbolos de flechas:
+
+$$
+\leftarrow , \rightarrow , \uparrow , \downarrow , \leftrightarrow 
+$$
+
+$$
+\Leftarrow , \Rightarrow , \Uparrow , \Downarrow , \Leftrightarrow 
+$$
+
+Operadores:
+
+$$
+\sum , \prod , \int
+$$
+
+$$
+\sum_{i=0}^{n} , \prod_{i=0}^{n} , \int_{i=0}^{n}
+$$
+
+Acentos en modo matemático:
+
+$$
+\hat{\alpha} , \bar{x} , \vec{y} , \tilde{a} 
+$$
+
+Símbolos varios:
+
+$$
+\ldots , \cdots ,  \vdots, \ddots, \infty , \\
+\pm , \cdot , \div , \times
+$$
+
+Raiz:
+
+$$
+\sqrt{2} , \sqrt[3]{2}
+$$
+
+Limitadores:
+
+$$
+(\frac{x^{2}}{a}) + b = 5
+$$
+
+$$
+\left( \frac{x^{2}}{a} \right) + b = 5
+$$
+
+$$
+\left[ \frac{x^{2}}{a} \right] + b = 5
+$$
+
+
+\newpage
+
+\section{ECUACIONES}
+
+Ecuación en la misma linea: $ax^{2}+bx+c = 0$ \vspace{.5cm}
+
+Ecuación centrada: 
+
+$$
+ax^{2}+bx+c = 0
+$$
+
+Ecuación centrada y numerada:
+
+\begin{equation}
+    ax^{2}+bx+c = 0, a \neq 0
+\end{equation}
+
+Ecuacion centrada y sin numerar:
+
+\begin{equation*}
+    ax^{2}+bx+c = 0, a \neq 0
+\end{equation*} \vspace{.5cm}
+
+Alinear una serie de ecuaciones. \vspace{.5cm}
+
+Ejemplo: Demostración de la Fórmula General para Resolver Ecuaciones de Segundo Grado. \vspace{.5cm}
+
+\begin{align*}
+    ax^{2}+bx+c &= 0, a \neq 0\\
+    4a \cdot (ax^{2}+bx+c) &= 4a \cdot 0\\
+    4a^{2}x^{2}+4abx+4ac &= 0\\
+    4a^{2}x^{2}+4abx+4ac + (b^{2}) &= (b^{2})\\
+    4a^{2}x^{2}+4abx + (b^{2}) &= (b^{2}) - 4ac\\
+    (2ax)^{2} + 2 \cdot 2ax \cdot + b^{2} &= b^{2} - 4ac\\
+    (2ax+b)^{2} &= b^{2} -4ac\\
+    2ax+b &= \sqrt{b^{2} -4ac}\\
+    2ax &= -b \pm \sqrt{b^{2} -4ac}\\
+    x &= \frac{-b \pm \sqrt{b^{2} -4ac}}{2a}\\
+\end{align*}
+
+\newpage
+
+\section{REFERENCIAS CRUZADAS}
+
+Problema de optimización: \vspace{.5cm}
+
+\begin{align}
+    \max_{x_{1}, x_{2}} &u(x_{1},x_{2}) \label{Max} \\ 
+    \notag s.a:& p_{1}x_{1}+p_{2}x_{2} \leq m 
+\end{align}
+
+El problema (\ref{Max}) de maximización, corresponde al problema de maximización de las preferencias sujeto a una restricción presupuestal, para resolverlo, existen varios métodos, entre los que se encuentran los "Multiplicadores de Lagrange". \vspace{.5cm}
+
+
+\newpage
+
+\section{LISTAS} 
+
+\subsection{Listas no numeradas}
+
+\begin{itemize}
+    \item 1 Primer Nivel
+    \item 2 Primer Nivel
+    \item 3 Primer Nivel
+\end{itemize}
+
+\subsubsection{Niveles de listas} 
+
+Segundo nivel \vspace{.5cm}
+
+\begin{itemize}
+    \item 1 Primer Nivel
+    \item 2 Primer Nivel
+    \begin{itemize}
+        \item 1 Segundo nivel
+        \item 2 Segundo nivel
+    \end{itemize}
+    \item 3 Primer Nivel
+\end{itemize}
+
+Tercer nivel \vspace{.5cm}
+
+\begin{itemize}
+    \item 1 Primer Nivel
+    \item 2 Primer Nivel
+    \begin{itemize}
+        \item 1 Segundo nivel
+        \item 2 Segundo nivel
+        \begin{itemize}
+            \item 1 Tercer nivel
+            \item 2 Tercer nivel
+        \end{itemize}
+    \end{itemize}
+    \item 3 Primer Nivel
+\end{itemize}
+
+\subsection{Listas Numeradas}
+
+\begin{enumerate}
+    \item Tierra
+    \item Aire
+    \item Fuego
+    \item Agua
+\end{enumerate}
+
+\subsubsection{Niveles}
+
+\begin{enumerate}
+    \item Primer nivel
+    \begin{enumerate}
+        \item Segundo nivel
+        \item Segundo nivel
+        \begin{enumerate}
+            \item Tercer nivel
+            \item Tercer nivel
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+
+\newpage
+
+
+\newpage
+
+\section{Material Adicional}
+
+Enlaces:
+
+\vspace{.5cm}
+
+\textbf{Creación de listas y tablas}
+
+\url{http://metodos.fam.cie.uva.es/~latex/apuntes/apuntes2.pdf}\\
+
+\textbf{Formulas matemáticas}
+
+\url{http://metodos.fam.cie.uva.es/~latex/apuntes/apuntes3.pdf}
+
