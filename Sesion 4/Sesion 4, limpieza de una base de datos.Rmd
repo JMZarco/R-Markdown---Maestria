@@ -1,0 +1,164 @@
+---
+title: "Sesion 4, limpieza de una base de datos"
+author: "Juan José Merino Zarco"
+date: "1/7/2021"
+output: pdf_document
+---
+
+***
+
+Para instalar y llamar automáticamente librerías,usamos el siguiente comando:
+
+```{r librerias}
+pacman::p_load(readr)
+```
+
+# Cargando una base de datos
+
+Identificar el directorio de trabajo
+
+```{r}
+getwd()
+```
+
+Asignar un directorio de trabajo especifico
+
+
+```{r}
+# Se usa la funcion setwd()
+
+# Queremos especificar la ruta "C:\Users\Omen\Desktop\Escritorio\Curso R mardkwon"
+
+# Para que R lo reconozca es necesario cambiar los backslash \ , por diagonales.
+
+setwd("C:/Users/Omen/Desktop/Escritorio/Curso R mardkwon")
+
+## Nota: Todos los archivos que usemos, incluidos este .Rmd debe estar
+## en la carpeta que indiquemos, de otra manera, tendra errores al compilar. 
+
+```
+
+Por cuestiones de tiempo, no usamos bases de datos descargas en la realización de los ejercicios (usamos dataframes por defecto de R). 
+
+Pero, es necesario mencionar que R soporta varios tipos de archivos distintos de Dataset (Base de datos), como lo puede ser un .xls, .xlsx (Extensiones de archivos de excel), .dta (Dataset de Stata), .sas7bdat(Dataset de SAS), .csv, entre otros.
+
+## Ejemplo, Censo Economico de INEGI
+
+Para leer archivos .csv usaremos la libreria "readr"
+
+```{r}
+pacman::p_load(readr)
+```
+
+
+Cargamos la base de datos y la guardamos adentro de un objeto, para lo cual usaremos el comando read_csv(file="nombre del archivo con extension")
+
+> Nota: No es necesario guardarlo adentro de un objeto, sin embargo, puesto que queremos ir visualizando cada paso que hacemos es recomendable, ademas, guardar en objetos nos permite trabajar con varias bases de datos en un mismo archivo.
+
+```{r}
+CE2019Mich <- read_csv(file = "ce2019_mich.csv")
+```
+
+Verificaremos que la base de datos que descargamos, es un dataframe
+
+
+```{r}
+class(CE2019Mich)
+```
+
+
+Crearemos una variable que nos permita identificar cada renglo de nuestro dataframe
+
+```{r}
+ID <- seq.int(nrow(CE2019Mich))
+```
+
+
+Procederemos a unir la columna ID al dataframe en el que trabajamos
+
+```{r}
+CE2019Mich_ID <- cbind(CE2019Mich, ID)
+CE2019Mich_ID
+```
+
+Filtraremos la base, para quedarnos unicamente con las variables que nos interesan. (En el diccionario de datos del archivo que descargamos, podemos revisar el significado de cada una)
+
+```{r}
+CE2019Mich_ID_filt <- CE2019Mich_ID[c("ENTIDAD", "MUNICIPIO", "CODIGO", "ID_ESTRATO", "UE", "A111A", "A131A", "A800A", "H001D", "H010A", "ID")]
+```
+
+Filtraremos la base de datos para quedarnos unicamente con las observaciones correspondientes a el sector de la Industria Manufacturera.
+
+```{r}
+CE2019Mich_ID_filt2 <- CE2019Mich_ID_filt[CE2019Mich_ID_filt$ID > 295 & CE2019Mich_ID_filt$ID < 1324,]
+```
+
+Ahora, usaremos la libreria "taRifx", que nos permitira convertir cadenas de texto a numeros.
+
+
+```{r}
+pacman::p_load(taRifx)
+```
+
+Crearemos una nueva variable, llamada CLAVE, en la cual convertiremos los datos especiales como es el caso de "31-33" a numero, omitiendo el guion corto. Para ello, usaremos el comando destring()
+
+
+```{r}
+CLAVE <- destring(CE2019Mich_ID_filt2$CODIGO, keep = "0-9")
+```
+
+Procederemos a unir la variable CLAVE, a nuestra base de datos "CE2019Mich_ID_filt2"
+
+
+```{r}
+CE2019Mich_to_edit <- cbind(CE2019Mich_ID_filt2,CLAVE)
+```
+
+Para este ejercicio, unicamente nos interesa la el sector de la industria manufacturera, y sus respectivos subsectores. Por lo que procederemos a filtrar nuevamente.
+
+
+```{r}
+CE_Mich_2019 <- CE2019Mich_to_edit[CE2019Mich_to_edit$CLAVE < 1000 | CE2019Mich_to_edit$CODIGO == "31-33",]
+```
+
+Sustituiremos el dato que habiamos unido previamente (31-33), que ahora es un 3133, el cual sustituiremos por un 300.
+
+```{r}
+CE_Mich_2019$CLAVE[CE_Mich_2019$CLAVE == 3133] <- 300
+```
+
+Vamos a crear una variable llamada CLAVE_UNICA, que nos permita identificar cada observacion, esto es util cuando queremos unir varias bases de datos. Para realizar lo anterior, usamos el comando paste0()
+
+Uniremos las variables ENTIDAD, CLAVE e ID
+
+```{r}
+CE_Mich_2019$CLAVE_UNICA <- paste0(CE_Mich_2019$ENTIDAD,CE_Mich_2019$CLAVE,CE_Mich_2019$ID)
+```
+
+Visualizamos como queda nuestra base de datos
+
+```{r}
+CE_Mich_2019
+```
+
+Procederemos a transformar el objeto (que contiene la base de datos final) en un archivo .csv para guardarlo para futuros fines.
+
+```{r}
+write.csv(x = CE_Mich_2019, file = "CE_mich_2019.csv", row.names = FALSE) 
+```
+
+***
+
+
+Para mayores detalles revisar el [**Capitulo 11 de R para principiantes**](https://bookdown.org/jboscomendoza/r-principiantes4/importar-y-exportar-datos.html), donde se detalla paso a paso como cargar cada tipo de archivo en R y que librerías son necesarias.
+
+En el libro, descarga las bases de datos mediante comandos en R, pero si ya tienen el archivo descargado (Por ejemplo, bases descargadas de BANXICO o de INEGI), basta con que pongan el archivo en el directorio de trabajo donde tengan su ".Rmd".
+
+***
+
+
+# Recursos adicionales
+
+R para principiantes
+
+<https://bookdown.org/jboscomendoza/r-principiantes4/datos-mas-comunes.html>

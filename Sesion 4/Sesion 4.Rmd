@@ -1,0 +1,121 @@
+---
+title: "Sesion 4"
+author: "Juan José Merino Zarco"
+date: "5/7/2021"
+output: pdf_document
+---
+
+## Librerias
+
+```{r}
+pacman::p_load(readr)
+```
+
+
+## Importando la base de datos
+
+El archivo que se uso esta muy pesado, por lo que dejo el enlace directo para que descarguen el archivo por si necesitan replicar el ejercicio.
+
+<https://www.inegi.org.mx/contenidos/programas/ce/2019/Datosabiertos/ce2019_mich_csv.zip>
+
+```{r}
+CE2019Mich <- read_csv(file = "ce2019_mich.csv")
+CE2019Mich
+```
+
+```{r}
+class(CE2019Mich)
+```
+
+```{r}
+ID <- seq.int(nrow(CE2019Mich))
+ID
+```
+
+```{r}
+CE2019Mich_ID <- cbind(CE2019Mich, ID)
+CE2019Mich_ID
+```
+Filtrar la base de datos por las variables de interes
+
+
+```{r}
+CE2019Mich_ID_filt <- CE2019Mich_ID[c("ENTIDAD", "MUNICIPIO", "CODIGO", "ID_ESTRATO", "UE", "A111A", "A131A", "A800A", "ID")]
+CE2019Mich_ID_filt
+```
+
+Queremos filtrar para quedarnos unicamente con la industria manufacturera y sus subsectores
+
+```{r}
+# OJO 
+CE2019Mich_ID_filt_filt <- CE2019Mich_ID_filt[CE2019Mich_ID_filt$ID > 295 & CE2019Mich_ID_filt$ID < 1324,]
+CE2019Mich_ID_filt_filt
+```
+
+```{r}
+tail(CE2019Mich_ID_filt_filt)
+```
+
+
+```{r}
+pacman::p_load(taRifx)
+```
+
+CREAR UNA NUEVA VARIABLE: CLAVE
+
+
+```{r}
+CE2019Mich_ID_filt_filt$CLAVE <- destring(CE2019Mich_ID_filt_filt$CODIGO, keep = "0-9")
+CE2019Mich_ID_filt_filt
+```
+
+Filtrar sectores y subsector
+
+```{r}
+CE_MICH_Sec <- CE2019Mich_ID_filt_filt[CE2019Mich_ID_filt_filt$CLAVE < 900 | CE2019Mich_ID_filt_filt$CODIGO == "31-33",]
+```
+
+```{r}
+CE_MICH_Sec$CLAVE[CE_MICH_Sec$CLAVE == 3133] <- 300
+```
+
+```{r}
+CE_MICH_Sec$CLAVE_UNICO <- paste0(CE_MICH_Sec$ENTIDAD, CE_MICH_Sec$CLAVE, CE_MICH_Sec$ID)
+```
+
+```{r}
+CE_MICH_Sec
+```
+
+
+```{r}
+CE_MICH_Sec$A111A[is.na(CE_MICH_Sec$A111A)] <- 0
+```
+
+```{r}
+CE_MICH_Sec
+```
+
+```{r}
+CE_MICH_Sec$LNA111A <- log(CE_MICH_Sec$A111A)
+```
+
+GUARDANDO LA BASE DATOS
+
+```{r}
+write.csv(x = CE_MICH_Sec, file = "CE_MICH_Sec.csv", row.names = FALSE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

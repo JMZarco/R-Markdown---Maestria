@@ -1,0 +1,87 @@
+---
+title: "Sesion 4.5"
+author: "Juan José Merino Zarco"
+date: "5/7/2021"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+# Graficos 
+
+
+```{r}
+mtcars
+```
+
+
+```{r}
+?mtcars
+```
+
+
+# Graficos de barras
+
+## Funcion por defecto de R
+
+barplot()
+
+```{r}
+cylfactor <- table(mtcars$cyl)
+```
+
+```{r}
+barplot(cylfactor, main = "Grafico de barras", xlab= "Numero de cilindros", ylab = "Numero de vehiculos")
+```
+
+## Graficando con ggplot2
+
+```{r}
+pacman::p_load(ggplot2)
+```
+
+ggplot()
+
+```{r}
+ggplot(mtcars, aes(cyl)) + geom_bar()
+```
+
+```{r}
+ggplot(mtcars, aes(x=as.factor(cyl))) + geom_bar(aes(fill = as.factor(cyl))) + scale_fill_brewer(palette = "Blues", name = "Cilindros") + labs(x = "Numero de cilindros", y = "Numero de vehiculos", title = "Grafica de barras")
+```
+
+
+### Regresion lineal en ggplot
+
+mpg = wt
+
+```{r}
+ggplot(mtcars, aes(x =  wt, y = mpg)) + geom_point() + geom_smooth(method = "lm", color = "red") + labs(title = "Regresion lineal", x = "Weight (1000 lbs)", y ="Miles/(US) gallon") 
+```
+
+Creando una regresion lineal
+
+> lm()
+
+```{r}
+reg1 <- lm(mpg ~ wt, data = mtcars)
+reg1 
+```
+
+```{r}
+summary.lm(reg1)
+```
+
+```{r}
+pacman::p_load(stargazer)
+```
+
+```{r, results = 'asis'}
+stargazer(reg1)
+```
+
+
+
+
+
+
