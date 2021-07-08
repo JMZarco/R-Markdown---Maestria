@@ -87,15 +87,6 @@ CE_MICH_Sec$CLAVE_UNICO <- paste0(CE_MICH_Sec$ENTIDAD, CE_MICH_Sec$CLAVE, CE_MIC
 CE_MICH_Sec
 ```
 
-
-```{r}
-CE_MICH_Sec$A111A[is.na(CE_MICH_Sec$A111A)] <- 0
-```
-
-```{r}
-CE_MICH_Sec
-```
-
 ```{r}
 CE_MICH_Sec$LNA111A <- log(CE_MICH_Sec$A111A)
 ```
