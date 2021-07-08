@@ -1,0 +1,67 @@
+---
+title: "T2 manejo de R, primera parte"
+author: "Juan José Merino Zarco"
+date: "23/6/2021"
+output: pdf_document
+---
+
+# Tarea 2
+
+a) Creé los siguientes 3 vectores:
+
+```{r}
+v1 <- c(1,2,3)
+v2 <- c(7,5,9)
+v3 <- c(2,1,2)
+v1
+v2
+v3
+```
+
+
+b) Usando los vectores del inciso a), creé la siguiente matriz:
+
+
+```{r}
+m1 <- cbind(v3,v2,v1)
+m1
+```
+
+c) Obtenga la matriz transpuesta de la matriz del inciso b):
+
+```{r}
+m11 <- t(m1)
+m11
+```
+
+d) Usando los vectores del inciso a), creé la siguiente matriz:
+
+```{r}
+m2 <- rbind(v3,v2,v1)
+m2
+```
+
+e) Compruebe que los valores de las matrices del inciso c) y d) son iguales, use operadores relacionales.
+
+```{r}
+m11 == m2
+```
+
+f) A la matriz del inciso c), reste la matriz del inciso d)
+
+```{r}
+m11 - m2
+```
+
+g) A la matriz del inciso c), agregue una columna de 1's
+
+```{r}
+mg <- cbind(m1,1)
+mg
+```
+
+
+ 
+
+
+

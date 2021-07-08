@@ -1,0 +1,46 @@
+---
+title: "Tareas del curso"
+subtitle: "Sesion final"
+author: "Juan Jose"
+date: '`r format(Sys.Date(), " %d de %B de %Y")`'
+linkcolor: green
+urlcolor: red
+mainfont: Arial
+fontsize: 11pt
+geometry: margin = 1cm
+output: 
+  pdf_document:
+    df_print: kable
+    fig_caption: yes
+    number_sections: yes
+header-includes:
+  \usepackage[spanish]{babel}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\listoffigures
+
+\newpage
+
+```{r, child='T1 Taller.Rmd'}
+```
+
+\newpage
+
+```{r, child='T2a.Rmd'}
+```
+
+\newpage
+
+```{r, child='T2b.Rmd'}
+```
+

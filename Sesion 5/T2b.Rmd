@@ -1,0 +1,62 @@
+---
+title: "T2, Segunda parte"
+author: "Juan José Merino Zarco"
+date: "22/6/2021"
+output: pdf_document
+---
+
+
+# Exploracion de la base de datos mtcars
+
+a) Averigue cuales son sus variables y que significan.
+
+
+b) Obtenga sus estadisticas basicas
+
+```{r}
+summary(mtcars)
+```
+
+c) Obtenga un dataframe de mtcars donde incluya las observaciones donde mpg > 19.20
+
+```{r}
+mtcars[mtcars$mpg>19.20,]
+```
+
+d) Obtenga las estadisticas del dataframe del inciso "c)"
+
+```{r}
+summary(mtcars[mtcars$mpg>19.20,])
+```
+
+e) Al dataframe del inciso c), agregue una nueva variable donde todos los valores sean igual a "Mexico"
+
+```{r}
+mfil <- mtcars[mtcars$mpg>19.20,]
+cbind(mfil, "Mexico")
+```
+
+f) Usando el dataframe del inciso "c)", sume el numero 2 a todos los valores de la variable hp
+
+```{r}
+mfil2<-mfil$hp + 2
+mfil2
+```
+
+```{r}
+mfil3 <- cbind(mfil,mfil2)
+mfil3
+```
+
+g) Compruebe que efectivamente, la diferencia entre las variables hp y "hp que se le sumo 2", es efectivamente 2
+
+```{r}
+mfil3$mfil2 - mfil3$hp
+```
+
+
+
+
+
+
+
