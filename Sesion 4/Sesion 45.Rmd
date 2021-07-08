@@ -10,6 +10,13 @@ output:
 # Graficos 
 
 
+Libros recomendado:
+
+**THE HITCHHIKER’S GUIDE TO GGPLOT2**
+
+**ggplot2, data visualization (Alboukadel Kassambara)**
+
+
 ```{r}
 mtcars
 ```
